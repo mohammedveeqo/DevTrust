@@ -1,100 +1,178 @@
-// Dashboard.js
+import React, { useState } from 'react';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { Bell, Shield, Activity, AlertTriangle, ChevronDown, Sun, Moon, Search } from 'lucide-react';
 
-import React from 'react';
+const contractActivityData = [
+  { month: 'JAN', transactions: 1200, anomalies: 3 },
+  { month: 'FEB', transactions: 2100, anomalies: 2 },
+  { month: 'MAR', transactions: 1800, anomalies: 4 },
+  { month: 'APR', transactions: 2400, anomalies: 1 },
+  { month: 'MAY', transactions: 1900, anomalies: 2 },
+  { month: 'JUN', transactions: 2800, anomalies: 3 },
+  { month: 'JUL', transactions: 3200, anomalies: 2 }
+];
 
 const Dashboard = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
+
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-5xl font-bold text-gray-800 mb-8">Welcome to Your Dashboard</h1>
+    <div className={`flex h-screen ${isDarkMode ? 'bg-[#0B1120] text-gray-100' : 'bg-gray-50 text-gray-900'}`}>
+      {/* Sidebar */}
+      <aside className={`w-64 p-6 border-r ${isDarkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
+        <div className="flex items-center space-x-2 mb-10">
+          <Shield className="w-8 h-8 text-blue-500" />
+          <span className="text-xl font-bold">GuardChain</span>
+        </div>
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg rounded-lg p-6">
-          <h2 className="text-xl font-bold">Active Contracts</h2>
-          <p className="text-5xl font-bold mt-2">15</p>
-          <p className="mt-4">Monitor your deployed contracts for integrity.</p>
+        {/* Sidebar Navigation */}
+        <div className="space-y-1">
+          <div className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-500'} mb-4`}>MONITORING</div>
+          <button className="flex items-center space-x-3 text-blue-500 bg-blue-50 w-full p-3 rounded-lg">
+            <Activity className="w-4 h-4" />
+            <span>Dashboard</span>
+          </button>
+          {[
+            { name: 'Smart Contracts', icon: Shield },
+            { name: 'Governance', icon: Activity },
+            { name: 'Wallet Tracking', icon: AlertTriangle },
+            { name: 'Payroll', icon: Activity }
+          ].map((item) => (
+            <button key={item.name} className={`flex items-center space-x-3 ${isDarkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'} w-full p-3 rounded-lg`}>
+              <item.icon className="w-4 h-4" />
+              <span>{item.name}</span>
+            </button>
+          ))}
         </div>
-        <div className="bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg rounded-lg p-6">
-          <h2 className="text-xl font-bold">Anomalies Detected</h2>
-          <p className="text-5xl font-bold mt-2">3</p>
-          <p className="mt-4">Identify and resolve security risks quickly.</p>
-        </div>
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg rounded-lg p-6">
-          <h2 className="text-xl font-bold">Wallet Interactions</h2>
-          <p className="text-5xl font-bold mt-2">245</p>
-          <p className="mt-4">Analyze recent wallet activities.</p>
-        </div>
-      </div>
 
-      {/* Charts and Graphs */}
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white shadow-lg rounded-lg p-6">
-          <h2 className="text-lg font-bold text-gray-800">Contract Health Over Time</h2>
-          <div className="mt-4">
-            {/* Replace with a chart library like Chart.js or Recharts */}
-            <div className="h-48 bg-gray-200 rounded animate-pulse"></div>
+        <div className="mt-8">
+          <div className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-500'} mb-4`}>SECURITY</div>
+          {[
+            { name: 'Key Holders', icon: Shield },
+            { name: 'Alerts', icon: Bell },
+            { name: 'Reports', icon: Activity }
+          ].map((item) => (
+            <button key={item.name} className={`flex items-center space-x-3 ${isDarkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'} w-full p-3 rounded-lg`}>
+              <item.icon className="w-4 h-4" />
+              <span>{item.name}</span>
+            </button>
+          ))}
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 overflow-auto">
+        {/* Header */}
+        <div className={`p-6 border-b ${isDarkMode ? 'border-gray-800 bg-gray-900' : 'border-gray-200 bg-white'}`}>
+          <div className="flex items-center justify-between">
+            <div className="relative">
+              <Search className={`absolute left-3 top-2.5 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'} w-5 h-5`} />
+              <input
+                type="text"
+                placeholder="Search contracts or transactions"
+                className={`pl-10 pr-4 py-2 ${isDarkMode ? 'bg-gray-800 text-gray-100' : 'bg-gray-50 text-gray-900'} rounded-lg text-sm w-64 focus:outline-none focus:ring-1 focus:ring-blue-500`}
+              />
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <Bell className={`w-5 h-5 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`} />
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+              </div>
+              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <Shield className="w-4 h-4 text-white" />
+              </div>
+              <button onClick={toggleTheme} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>
+                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+            </div>
           </div>
         </div>
-        <div className="bg-white shadow-lg rounded-lg p-6">
-          <h2 className="text-lg font-bold text-gray-800">Wallet Activity Heatmap</h2>
-          <div className="mt-4">
-            {/* Replace with a chart library */}
-            <div className="h-48 bg-gray-200 rounded animate-pulse"></div>
+
+        {/* Dashboard Content */}
+        <div className="p-6">
+          {/* Contract Activity Chart */}
+          <div className="grid grid-cols-3 gap-6">
+            <div className={`col-span-2 p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-lg font-semibold">Contract Activity</h2>
+                <select className={`text-sm rounded-lg px-3 py-2 ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-50 text-gray-900'}`}>
+                  <option>Last 7 Days</option>
+                  <option>Last 30 Days</option>
+                  <option>Last 90 Days</option>
+                </select>
+              </div>
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={contractActivityData}>
+                    <XAxis dataKey="month" stroke={isDarkMode ? "#4B5563" : "#9CA3AF"} />
+                    <YAxis stroke={isDarkMode ? "#4B5563" : "#9CA3AF"} />
+                    <Tooltip contentStyle={{ backgroundColor: isDarkMode ? '#374151' : '#FFFFFF', borderColor: isDarkMode ? '#4B5563' : '#E5E7EB' }} />
+                    <Line type="monotone" dataKey="transactions" stroke="#3B82F6" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="anomalies" stroke="#EF4444" strokeWidth={2} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Recent Alerts */}
+            <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+              <h2 className="text-lg font-semibold mb-6">Recent Alerts</h2>
+              <div className="space-y-4">
+                {[
+                  { type: 'Anomaly', message: 'Unusual transaction volume detected', severity: 'HIGH', color: 'red' },
+                  { type: 'Contract', message: 'Smart contract version mismatch', severity: 'MEDIUM', color: 'yellow' },
+                  { type: 'Wallet', message: 'New key holder added', severity: 'LOW', color: 'blue' }
+                ].map((alert, index) => (
+                  <div key={index} className={`p-4 rounded-lg ${isDarkMode ? `bg-${alert.color}-500/20` : `bg-${alert.color}-50`}`}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-medium">{alert.type}</span>
+                      <span className={`text-sm text-${alert.color}-500`}>
+                        {alert.severity}
+                      </span>
+                    </div>
+                    <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{alert.message}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Recent Activity */}
+          <div className={`mt-6 rounded-xl p-6 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold">Recent Activity</h2>
+              <button className={`flex items-center text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                All activities <ChevronDown className="w-4 h-4 ml-2" />
+              </button>
+            </div>
+            <div className="space-y-4">
+              {[
+                { name: 'Smart Contract Update', category: 'Contract', status: 'Verified', color: 'green' },
+                { name: 'Governance Proposal', category: 'Governance', status: 'Pending', color: 'yellow' },
+                { name: 'Wallet Integration', category: 'Security', status: 'Completed', color: 'blue' }
+              ].map((activity, index) => (
+                <div key={index} className={`flex items-center justify-between py-3 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+                  <div className="flex items-center space-x-4">
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                      <Shield className="w-5 h-5 text-blue-500" />
+                    </div>
+                    <div>
+                      <div className="font-medium">{activity.name}</div>
+                      <div className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{activity.category}</div>
+                    </div>
+                  </div>
+                  <div className={`text-sm text-${activity.color}-500`}>
+                    {activity.status}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Recent Activities */}
-      <div className="mt-10">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Recent Activities</h2>
-        <div className="bg-white shadow-lg rounded-lg p-6">
-          <ul className="divide-y divide-gray-200">
-            <li className="py-4 flex justify-between items-center">
-              <span className="text-gray-600">Wallet 0x123...abc interacted with Contract 0x456...def</span>
-              <span className="text-sm text-gray-500">5 minutes ago</span>
-            </li>
-            <li className="py-4 flex justify-between items-center">
-              <span className="text-gray-600">Anomaly detected in Contract 0x789...xyz</span>
-              <span className="text-sm text-gray-500">10 minutes ago</span>
-            </li>
-            <li className="py-4 flex justify-between items-center">
-              <span className="text-gray-600">Proposal approved: Increase staking rewards</span>
-              <span className="text-sm text-gray-500">1 hour ago</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Alerts Section */}
-      <div className="mt-10">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Alerts</h2>
-        <div className="bg-white shadow-lg rounded-lg p-6">
-          <ul className="divide-y divide-gray-200">
-            <li className="py-4 flex justify-between items-center">
-              <span className="text-red-600 font-bold">Critical</span>
-              <span className="text-gray-600">Anomaly detected in Contract 0x789...xyz</span>
-              <span className="text-sm text-gray-500">5 minutes ago</span>
-            </li>
-            <li className="py-4 flex justify-between items-center">
-              <span className="text-yellow-600 font-bold">Warning</span>
-              <span className="text-gray-600">Wallet 0x123...abc showing unusual activity</span>
-              <span className="text-sm text-gray-500">15 minutes ago</span>
-            </li>
-            <li className="py-4 flex justify-between items-center">
-              <span className="text-green-600 font-bold">Info</span>
-              <span className="text-gray-600">Contract 0x456...def successfully deployed</span>
-              <span className="text-sm text-gray-500">1 hour ago</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Call-to-Action */}
-      <div className="mt-16 bg-blue-600 text-white py-10 text-center rounded-lg">
-        <h2 className="text-3xl font-bold">Stay Ahead of Blockchain Threats</h2>
-        <p className="mt-4">Monitor, analyze, and secure your blockchain operations in real-time.</p>
-        <button className="mt-6 px-6 py-3 bg-white text-blue-600 font-bold rounded-lg shadow-lg hover:bg-gray-200">Explore More Features</button>
-      </div>
+      </main>
     </div>
   );
 };

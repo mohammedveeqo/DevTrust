@@ -1,19 +1,13 @@
-// Home.js
-
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Shield, Activity, AlertTriangle } from 'lucide-react';
+import Hero from './Hero'; // Import the Hero component
 
 const Home = () => {
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-50">
       {/* Hero Section */}
-      <section className="text-center py-20 bg-blue-600 text-white">
-        <h1 className="text-5xl font-bold">Welcome to GuardChain</h1>
-        <p className="text-lg mt-4">Your trusted solution for blockchain governance and monitoring.</p>
-        <div className="mt-6">
-          <a href="/signup" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-200">Start Free Trial</a>
-          <a href="/pricing" className="ml-4 text-white border border-white px-6 py-3 rounded-lg hover:bg-blue-700">View Pricing</a>
-        </div>
-      </section>
+      <Hero />
 
       {/* Features Section */}
       <section className="py-16">
@@ -54,7 +48,7 @@ const Home = () => {
         <h2 className="text-4xl font-bold">Ready to Take Control?</h2>
         <p className="text-lg mt-4">Start your journey with GuardChain and experience the future of blockchain monitoring.</p>
         <div className="mt-6">
-          <a href="/signup" className="bg-white text-blue-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-200">Sign Up Now</a>
+          <Link to="/signup" className="bg-white text-blue-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-200">Sign Up Now</Link>
         </div>
       </section>
     </div>

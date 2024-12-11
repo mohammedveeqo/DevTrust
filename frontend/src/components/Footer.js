@@ -1,55 +1,133 @@
-// Footer.js
-
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Shield, Twitter, Linkedin, Github, Mail, ExternalLink } from 'lucide-react';
 
 const Footer = () => {
+  const footerLinks = {
+    features: [
+      { name: 'Dashboard', href: '/dashboard' },
+      { name: 'Monitoring', href: '/monitoring' },
+      { name: 'Governance', href: '/governance' },
+      { name: 'Security', href: '/security' },
+    ],
+    resources: [
+      { name: 'Documentation', href: '/docs' },
+      { name: 'API', href: '/api' },
+      { name: 'Status', href: '/status' },
+      { name: 'Blog', href: '/blog' },
+    ],
+    company: [
+      { name: 'About', href: '/about' },
+      { name: 'Contact', href: '/contact' },
+      { name: 'Privacy', href: '/privacy' },
+      { name: 'Terms', href: '/terms' },
+    ],
+    social: [
+      { name: 'Twitter', href: '#', icon: Twitter },
+      { name: 'LinkedIn', href: '#', icon: Linkedin },
+      { name: 'GitHub', href: '#', icon: Github },
+    ]
+  };
+
   return (
-    <footer className="bg-gray-800 text-gray-400 py-6">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* About Section */}
-          <div>
-            <h3 className="text-white text-lg font-bold mb-4">About GuardChain</h3>
-            <p className="text-sm">
-              GuardChain offers comprehensive blockchain monitoring and governance tools to ensure transparency, security, and performance.
+    <footer className="bg-white border-t border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Footer Content */}
+        <div className="py-12 grid grid-cols-2 md:grid-cols-12 gap-8">
+          {/* Brand Section */}
+          <div className="col-span-2 md:col-span-3">
+            <div className="flex items-center space-x-2">
+              <Shield className="w-8 h-8 text-blue-600" />
+              <span className="text-xl font-bold text-gray-900">GuardChain</span>
+            </div>
+            <p className="mt-4 text-gray-500 text-sm">
+              Secure blockchain monitoring and governance platform.
             </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-white text-lg font-bold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="/" className="hover:text-white">Home</a></li>
-              <li><a href="/pricing" className="hover:text-white">Pricing</a></li>
-              <li><a href="/dashboard" className="hover:text-white">Dashboard</a></li>
-              <li><a href="/contact" className="hover:text-white">Contact Us</a></li>
-            </ul>
-          </div>
-
-          {/* Social Media */}
-          <div>
-            <h3 className="text-white text-lg font-bold mb-4">Follow Us</h3>
-            <div className="flex space-x-4">
-              <a href="#" className="hover:text-white">
-                <svg className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M24 4.5a9.79 9.79 0 0 1-2.82.77 4.93 4.93 0 0 0 2.17-2.71 9.86 9.86 0 0 1-3.1 1.19 4.92 4.92 0 0 0-8.38 4.48A13.93 13.93 0 0 1 1.64 3.15 4.92 4.92 0 0 0 3.2 9.86a4.88 4.88 0 0 1-2.23-.61v.06a4.92 4.92 0 0 0 3.95 4.83 4.92 4.92 0 0 1-2.21.08 4.92 4.92 0 0 0 4.6 3.41 9.87 9.87 0 0 1-6.1 2.11c-.4 0-.79 0-1.17-.04A13.94 13.94 0 0 0 7.55 21c9 0 13.92-7.47 13.92-13.93 0-.21 0-.42-.02-.63A9.94 9.94 0 0 0 24 4.5z" />
-                </svg>
-              </a>
-              <a href="#" className="hover:text-white">
-                <svg className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M22.54 6.42c-.77.34-1.6.57-2.47.67a4.33 4.33 0 0 0 1.88-2.37 8.68 8.68 0 0 1-2.75 1.05 4.3 4.3 0 0 0-7.36 3.91A12.23 12.23 0 0 1 2 4.72a4.3 4.3 0 0 0 1.33 5.74 4.3 4.3 0 0 1-1.94-.54v.05a4.3 4.3 0 0 0 3.45 4.22 4.32 4.32 0 0 1-1.93.07 4.31 4.31 0 0 0 4.02 2.98A8.65 8.65 0 0 1 2 19.54 12.2 12.2 0 0 0 6.65 21c7.94 0 12.29-6.58 12.29-12.29 0-.19 0-.39-.02-.58a8.77 8.77 0 0 0 2.14-2.22z" />
-                </svg>
-              </a>
-              <a href="#" className="hover:text-white">
-                <svg className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M21.54 0H2.46A2.46 2.46 0 0 0 0 2.46v19.08A2.46 2.46 0 0 0 2.46 24h10.26v-8.94H9.83v-3.45h2.89V9.41c0-2.86 1.75-4.42 4.3-4.42 1.22 0 2.27.09 2.57.13v2.98l-1.76.01c-1.38 0-1.65.66-1.65 1.62v2.12h3.29l-.43 3.45h-2.86V24h5.62A2.46 2.46 0 0 0 24 21.54V2.46A2.46 2.46 0 0 0 21.54 0z" />
-                </svg>
+            <div className="mt-6">
+              <a href="mailto:contact@guardchain.io" className="flex items-center text-sm text-gray-500 hover:text-blue-600">
+                <Mail className="w-5 h-5 mr-2" />
+                contact@guardchain.io
               </a>
             </div>
           </div>
+
+          {/* Links Sections */}
+          <div className="col-span-2 md:col-span-6 grid grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900 uppercase">Features</h3>
+              <ul className="mt-4 space-y-3">
+                {footerLinks.features.map((item) => (
+                  <li key={item.name}>
+                    <Link to={item.href} className="text-sm text-gray-500 hover:text-blue-600">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900 uppercase">Resources</h3>
+              <ul className="mt-4 space-y-3">
+                {footerLinks.resources.map((item) => (
+                  <li key={item.name}>
+                    <Link to={item.href} className="text-sm text-gray-500 hover:text-blue-600">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900 uppercase">Company</h3>
+              <ul className="mt-4 space-y-3">
+                {footerLinks.company.map((item) => (
+                  <li key={item.name}>
+                    <Link to={item.href} className="text-sm text-gray-500 hover:text-blue-600">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Newsletter Section */}
+          <div className="col-span-2 md:col-span-3">
+            <h3 className="text-sm font-semibold text-gray-900 uppercase">Stay Updated</h3>
+            <div className="mt-4">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-full px-4 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+              <button className="mt-2 w-full flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700">
+                Subscribe
+              </button>
+            </div>
+            <div className="mt-6 flex space-x-4">
+              {footerLinks.social.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-gray-400 hover:text-gray-600"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="sr-only">{item.name}</span>
+                  <item.icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="mt-6 text-center text-sm border-t border-gray-700 pt-4">
-          <p>&copy; {new Date().getFullYear()} GuardChain. All rights reserved.</p>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-100 py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="text-sm text-gray-500">
+              © {new Date().getFullYear()} GuardChain. All rights reserved.
+            </div>
+          </div>
         </div>
       </div>
     </footer>
