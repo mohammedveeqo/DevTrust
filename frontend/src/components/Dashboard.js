@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { Bell, Shield, Activity, AlertTriangle, ChevronDown, Sun, Moon, Search } from 'lucide-react';
 
@@ -25,41 +26,28 @@ const Dashboard = () => {
       <aside className={`w-64 p-6 border-r ${isDarkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
         <div className="flex items-center space-x-2 mb-10">
           <Shield className="w-8 h-8 text-blue-500" />
-          <span className="text-xl font-bold">GuardChain</span>
+          <span className="text-xl font-bold">DevTrust</span>
         </div>
 
         {/* Sidebar Navigation */}
         <div className="space-y-1">
-          <div className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-500'} mb-4`}>MONITORING</div>
-          <button className="flex items-center space-x-3 text-blue-500 bg-blue-50 w-full p-3 rounded-lg">
+          <div className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-500'} mb-4`}>DASHBOARD</div>
+          <Link to="/dashboard" className="flex items-center space-x-3 text-blue-500 bg-blue-50 w-full p-3 rounded-lg">
             <Activity className="w-4 h-4" />
-            <span>Dashboard</span>
-          </button>
-          {[
-            { name: 'Smart Contracts', icon: Shield },
-            { name: 'Governance', icon: Activity },
-            { name: 'Wallet Tracking', icon: AlertTriangle },
-            { name: 'Payroll', icon: Activity }
-          ].map((item) => (
-            <button key={item.name} className={`flex items-center space-x-3 ${isDarkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'} w-full p-3 rounded-lg`}>
-              <item.icon className="w-4 h-4" />
-              <span>{item.name}</span>
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-8">
-          <div className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-500'} mb-4`}>SECURITY</div>
-          {[
-            { name: 'Key Holders', icon: Shield },
-            { name: 'Alerts', icon: Bell },
-            { name: 'Reports', icon: Activity }
-          ].map((item) => (
-            <button key={item.name} className={`flex items-center space-x-3 ${isDarkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'} w-full p-3 rounded-lg`}>
-              <item.icon className="w-4 h-4" />
-              <span>{item.name}</span>
-            </button>
-          ))}
+            <span>Overview</span>
+          </Link>
+          <Link to="/milestones" className={`flex items-center space-x-3 ${isDarkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'} w-full p-3 rounded-lg`}>
+            <Shield className="w-4 h-4" />
+            <span>Milestones</span>
+          </Link>
+          <Link to="/proof-of-work" className={`flex items-center space-x-3 ${isDarkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'} w-full p-3 rounded-lg`}>
+            <Activity className="w-4 h-4" />
+            <span>Proof of Work</span>
+          </Link>
+          <Link to="/disputes" className={`flex items-center space-x-3 ${isDarkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'} w-full p-3 rounded-lg`}>
+            <AlertTriangle className="w-4 h-4" />
+            <span>Disputes</span>
+          </Link>
         </div>
       </aside>
 
@@ -93,50 +81,69 @@ const Dashboard = () => {
 
         {/* Dashboard Content */}
         <div className="p-6">
-          {/* Contract Activity Chart */}
+          {/* Overview */}
           <div className="grid grid-cols-3 gap-6">
-            <div className={`col-span-2 p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-semibold">Contract Activity</h2>
-                <select className={`text-sm rounded-lg px-3 py-2 ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-50 text-gray-900'}`}>
-                  <option>Last 7 Days</option>
-                  <option>Last 30 Days</option>
-                  <option>Last 90 Days</option>
-                </select>
-              </div>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={contractActivityData}>
-                    <XAxis dataKey="month" stroke={isDarkMode ? "#4B5563" : "#9CA3AF"} />
-                    <YAxis stroke={isDarkMode ? "#4B5563" : "#9CA3AF"} />
-                    <Tooltip contentStyle={{ backgroundColor: isDarkMode ? '#374151' : '#FFFFFF', borderColor: isDarkMode ? '#4B5563' : '#E5E7EB' }} />
-                    <Line type="monotone" dataKey="transactions" stroke="#3B82F6" strokeWidth={2} dot={false} />
-                    <Line type="monotone" dataKey="anomalies" stroke="#EF4444" strokeWidth={2} dot={false} />
-                  </LineChart>
-                </ResponsiveContainer>
+            <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+              <h2 className="text-lg font-semibold mb-4">Milestones</h2>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-4xl font-bold">105</p>
+                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Completed</p>
+                </div>
+                <div>
+                  <p className="text-4xl font-bold">23</p>
+                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>In Progress</p>
+                </div>
               </div>
             </div>
-
-            {/* Recent Alerts */}
             <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
-              <h2 className="text-lg font-semibold mb-6">Recent Alerts</h2>
-              <div className="space-y-4">
-                {[
-                  { type: 'Anomaly', message: 'Unusual transaction volume detected', severity: 'HIGH', color: 'red' },
-                  { type: 'Contract', message: 'Smart contract version mismatch', severity: 'MEDIUM', color: 'yellow' },
-                  { type: 'Wallet', message: 'New key holder added', severity: 'LOW', color: 'blue' }
-                ].map((alert, index) => (
-                  <div key={index} className={`p-4 rounded-lg ${isDarkMode ? `bg-${alert.color}-500/20` : `bg-${alert.color}-50`}`}>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium">{alert.type}</span>
-                      <span className={`text-sm text-${alert.color}-500`}>
-                        {alert.severity}
-                      </span>
-                    </div>
-                    <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{alert.message}</p>
-                  </div>
-                ))}
+              <h2 className="text-lg font-semibold mb-4">Payments</h2>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-4xl font-bold">$2.4M</p>
+                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Paid out</p>
+                </div>
+                <div>
+                  <p className="text-4xl font-bold">$0.8M</p>
+                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Pending</p>
+                </div>
               </div>
+            </div>
+            <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+              <h2 className="text-lg font-semibold mb-4">Disputes</h2>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-4xl font-bold">12</p>
+                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Resolved</p>
+                </div>
+                <div>
+                  <p className="text-4xl font-bold">4</p>
+                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Pending</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contract Activity Chart */}
+          <div className={`mt-6 p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold">Contract Activity</h2>
+              <select className={`text-sm rounded-lg px-3 py-2 ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-50 text-gray-900'}`}>
+                <option>Last 7 Days</option>
+                <option>Last 30 Days</option>
+                <option>Last 90 Days</option>
+              </select>
+            </div>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={contractActivityData}>
+                  <XAxis dataKey="month" stroke={isDarkMode ? "#4B5563" : "#9CA3AF"} />
+                  <YAxis stroke={isDarkMode ? "#4B5563" : "#9CA3AF"} />
+                  <Tooltip contentStyle={{ backgroundColor: isDarkMode ? '#374151' : '#FFFFFF', borderColor: isDarkMode ? '#4B5563' : '#E5E7EB' }} />
+                  <Line type="monotone" dataKey="transactions" stroke="#3B82F6" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="anomalies" stroke="#EF4444" strokeWidth={2} dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </div>
 
@@ -144,9 +151,9 @@ const Dashboard = () => {
           <div className={`mt-6 rounded-xl p-6 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold">Recent Activity</h2>
-              <button className={`flex items-center text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+              <Link to="/activity-log" className={`flex items-center text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 All activities <ChevronDown className="w-4 h-4 ml-2" />
-              </button>
+              </Link>
             </div>
             <div className="space-y-4">
               {[

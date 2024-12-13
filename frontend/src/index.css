@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .clip-diagonal {
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  }
+  .clip-diagonal-inverse {
+    clip-path: polygon(0 70%, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
 body {
   @apply font-sans bg-gray-100 text-gray-800;
   margin: 0;

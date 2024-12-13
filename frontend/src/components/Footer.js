@@ -5,10 +5,9 @@ import { Shield, Twitter, Linkedin, Github, Mail, ExternalLink } from 'lucide-re
 const Footer = () => {
   const footerLinks = {
     features: [
-      { name: 'Dashboard', href: '/dashboard' },
-      { name: 'Monitoring', href: '/monitoring' },
-      { name: 'Governance', href: '/governance' },
-      { name: 'Security', href: '/security' },
+      { name: 'Milestones', href: '/milestones' },
+      { name: 'Proof of Work', href: '/proof-of-work' },
+      { name: 'Dispute Resolution', href: '/disputes' },
     ],
     resources: [
       { name: 'Documentation', href: '/docs' },
@@ -26,7 +25,7 @@ const Footer = () => {
       { name: 'Twitter', href: '#', icon: Twitter },
       { name: 'LinkedIn', href: '#', icon: Linkedin },
       { name: 'GitHub', href: '#', icon: Github },
-    ]
+    ],
   };
 
   return (
@@ -38,23 +37,27 @@ const Footer = () => {
           <div className="col-span-2 md:col-span-3">
             <div className="flex items-center space-x-2">
               <Shield className="w-8 h-8 text-blue-600" />
-              <span className="text-xl font-bold text-gray-900">GuardChain</span>
+              <span className="text-xl font-bold text-gray-900">Devtrust</span>
             </div>
             <p className="mt-4 text-gray-500 text-sm">
-              Secure blockchain monitoring and governance platform.
+              Milestone-based payment system for decentralized project management.
             </p>
             <div className="mt-6">
-              <a href="mailto:contact@guardchain.io" className="flex items-center text-sm text-gray-500 hover:text-blue-600">
-                <Mail className="w-5 h-5 mr-2" />
-                contact@guardchain.io
-              </a>
-            </div>
+  <a
+    href="mailto:contact@devtrust.io"
+    className="flex items-center text-sm text-gray-500 hover:text-blue-600"
+  >
+    <Mail className="w-5 h-5 mr-2" />
+    contact@devtrust.io
+  </a>
+</div>
+
           </div>
 
           {/* Links Sections */}
           <div className="col-span-2 md:col-span-6 grid grid-cols-3 gap-8">
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 uppercase">Features</h3>
+              <h3 className="text-sm font-semibold text-gray-900 uppercase">Key Features</h3>
               <ul className="mt-4 space-y-3">
                 {footerLinks.features.map((item) => (
                   <li key={item.name}>
@@ -105,19 +108,20 @@ const Footer = () => {
               </button>
             </div>
             <div className="mt-6 flex space-x-4">
-              {footerLinks.social.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-400 hover:text-gray-600"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span className="sr-only">{item.name}</span>
-                  <item.icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
+  {footerLinks.social.map((item) => (
+    <a
+      key={item.name}
+      href={item.href}
+      className="text-gray-400 hover:text-gray-600"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span className="sr-only">{item.name}</span>
+      <item.icon className="w-5 h-5" />
+    </a>
+  ))}
+</div>
+
           </div>
         </div>
 
@@ -125,7 +129,7 @@ const Footer = () => {
         <div className="border-t border-gray-100 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-gray-500">
-              © {new Date().getFullYear()} GuardChain. All rights reserved.
+              © {new Date().getFullYear()} Devtrust. All rights reserved.
             </div>
           </div>
         </div>
