@@ -1,5 +1,3 @@
-// App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -12,13 +10,25 @@ import Dashboard from './components/Dashboard';
 import Wallets from './components/Wallets';
 import Governance from './components/Governance';
 import Alerts from './components/Alerts';
+import Milestones from './components/Milestones';
+import ProofOfWork from './components/ProofOfWork';
+import Disputes from './components/Disputes';
 import NotFound from './components/NotFound';
+import Layout from './components/Layout';
 
 const AppContent = () => {
   const location = useLocation();
 
   // Define routes where Navbar and Footer should NOT appear
-  const hideLayoutRoutes = ['/dashboard', '/wallets', '/governance', '/alerts'];
+  const hideLayoutRoutes = [
+    '/dashboard',
+    '/wallets',
+    '/governance',
+    '/alerts',
+    '/milestones',
+    '/proof-of-work',
+    '/disputes',
+  ];
 
   const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
 
@@ -35,6 +45,10 @@ const AppContent = () => {
           <Route path="/wallets" element={<Wallets />} />
           <Route path="/governance" element={<Governance />} />
           <Route path="/alerts" element={<Alerts />} />
+          <Route path="/milestones" element={<Milestones />} />
+          <Route path="/proof-of-work" element={<ProofOfWork />} />
+          <Route path="/disputes" element={<Disputes />} />
+          <Route path="/disputes" element={<Layout />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
